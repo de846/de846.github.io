@@ -32,6 +32,8 @@ The versions don't necessarily match up to the ones in the LFS doc, so I hope th
 ### Partition
 I need a partition (and a swap is recommended), so I shut down the CentOS VM to create a new virtual disk and attach it. I'll create a 20 GB disk, with 2GB for swap.
 
+I used gdisk to create a gpt partition, created a 10MB partition for Grub BIOS (ef02), a 2GB swap (8200) and ~18GB root filesystem (8300). I decided to not make separate partitions for /boot, /tmp, etc. to keep it simple on my first pass.
+
 ### LFS packages
 From section 3.2 and 3.3, I copied the text and used awk to export the URLs need to create a list to pass into wget using:
 ```
