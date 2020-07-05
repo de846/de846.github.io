@@ -64,3 +64,15 @@ chown -v lfs $LFS/sources
 
 ### Creating toolchain
 I made it to chapter 5 and was reading about the toolchain. I'll have to go back to check some things about GCC and binutils, but it seems very interesting. I am unpacking all tarballs in `$LFS/sources` right now.
+
+Taking a break today to prepare for a Leetcode contest.
+
+## Day 2 (7/5/2020)
+
+I unpacked some libraries needed to compile gcc in the wrong directory, so I was missing `gmp`, `mpfr`, and `mpc`. I re-read the instructions and let the gcc build take off.
+
+The guest VM I am using (as the host for LFS) was spending too much room on gnome-shell, so I installed xfce and rebooted. I also decided to remove `gdm` and replace it with `sddm`.
+
+We built binutils, then gcc (without c++ support intentionally) so that we could compile the sources for the C library (glibc-2.31). Now that we have a C library, we can compile libstdc++ so that we can recompile gcc with c++ support.
+
+Now that we have our target compiler with C and C++ support in `/tools`, we can recompile binutils for pass-2 with our versions of `cc` and `ar` by setting `CC=$LFS_TGT-gcc` and `AR=$LFS_TGT-ar`.
