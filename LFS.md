@@ -105,3 +105,5 @@ It worked! I can move on to compile `bison-3.5.2` next.
 The bison tests took over 30 minutes to complete. I think it ran something like 564 tests. I went back to Leetcode while I waited for the tests to pass.
 
 I've spent the last hour just going through basic compilations that are nothing more than `./configure --prefix=/tools && make && make check && make install`, so just doing a lot of waiting. It's 8:54PM ET.
+
+I just had a `make check` fail against `make-4.3`. I really hope that doesn't bite me later. It was just one test and didn't look very important.
