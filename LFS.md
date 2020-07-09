@@ -90,12 +90,18 @@ I got an error running `make` for the expect package. Something with the tcl pac
 ```
 It looks like no one really runs tests in chapter 5. Perhaps the above message isn't a proper error. I was able to install DejaGNU without issues and it relied on Tcl8.6, so /shrug. Moving on to m4... and ncurses..
 
-In 5.15, the instruction to `ln -s libncursesw.so /tools/lib/libncurses.so` fails because the source library is actually in the `lib/` subdirectory, so I used that one instead (of the non-existent one). Uh-oh - my compilation of Bash 5.0 failed because it couldn't find -l curses. Time to dig...
+In 5.15, the instruction to `ln -s libncursesw.so /tools/lib/libncurses.so` fails because the source library is actually in the `lib/` subdirectory, so I used that one instead (of the non-existent one). Uh-oh - my compilation of Bash 5.0 failed because it couldn't find `-lcurses`. Time to dig...
 
 ## Day 4 (7/7/2020)
 
-Still digging into this failing curses library. What is going on? The investigation continues...
+Still digging into this failing curses library. What is going on? I wonder if I forgot to do something when I rebooted the other day. I remounted the block device and the swap partition, the lfs user's shell is already properly configured. The investigation continues...
+
+I tried reading through `strace make ...` for bash, but I didn't see anything relevant to curses. I was hoping to see an attempt to open libncurses files, but nothing.
 
 I just spent 10 minutes reading through the `Bash-5.0/configure` script. Yikes. Apparently, it needs `curses` which is _not_ `ncurses`, so I am trying to recompile after running `ln -sv /tools/lib/libncursesw.so /tools/lib/libcurses.so`.
 
 It worked! I can move on to compile `bison-3.5.2` next.
+
+The bison tests took over 30 minutes to complete. I think it ran something like 564 tests. I went back to Leetcode while I waited for the tests to pass.
+
+I've spent the last hour just going through basic compilations that are nothing more than `./configure --prefix=/tools && make && make check && make install`, so just doing a lot of waiting. It's 8:54PM ET.
